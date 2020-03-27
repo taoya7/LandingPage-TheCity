@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>GSAP Demo</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+
+    <div class="container navbar">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <img src="./img/Sign-light.png" alt="">
+          <p>Lin.</p>
+        </div>
+        <ul>
+          <li>家</li>
+          <li>关于</li>
+        </ul>
+      </div>
+
+      <div class="container main-section">
+        <div class="hero-section">
+          <div class="content">
+            <!-- 文字描述 -->
+            <div class="text">
+              <p>多言数穷，不如守中</p>
+              <hr />
+              <a href="#" class="btn">更多</a>
+            </div>
+            <!-- 地点 -->
+            <div class="show-places">
+              <div class="door-illusion">
+                <img src="" alt="" id='img'>
+              </div>
+            </div>
+            <div class="places-name" id="places-name">
+              <ul>
+                <li><a href="#" class="country" id='北京' onclick="displayImage(this)">北京</a></li>
+                <li><a href="#" class="country" id="杭州" onclick="displayImage(this)">杭州</a></li>
+                <li><a href="#" class="country" id='山西' onclick="displayImage(this)">山西</a></li>
+              </ul>
+            </div>
+            <div class="sideways-text">
+              <div class="line"></div>
+              <div class="outer-circle">
+                <div></div>
+              </div>
+              <ul>
+                <li><a href="#">QQ</a></li>
+                <li><a href="#">微信</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    
+    <script src="js/ScrollMagic.min.js"></script>
+    <script src="js/CSSPlugin.min.js"></script>
+    <script src="https://cdn.bootcss.com/gsap/3.2.5/gsap.js"></script>
+  </body>
+
+  <script>
+      const displayImage = e=>{
+        let imageId = e.id;
+        let img = document.getElementById("img");
+        let doorIllusion = document.getElementsByClassName('door-illusion')[0];
+        img.setAttribute('src', `./img/${imageId}.svg`);
+
+        var tl = new gsap.timeline();
+        tl.fromTo(doorIllusion,{
+          boxShadow: 'inset 0em 0em 0em #000'
+        }, {
+          boxShadow: 'inset 0em 3em 2em #000',
+          ease: Power4.easeOut
+        })
+        .fromTo(img, {
+          top: '-240px'
+        },{
+          top: '80px',
+          ease: Power4.easeOut
+        })
+        .fromTo(doorIllusion, {
+          boxShadow: 'inset 0em 3em 2em #000',
+        },{
+          boxShadow: 'inset 0em 0em 0em #000'
+        })
+        .fromTo(doorIllusion, {
+          overflow: 'hidden'
+        },{
+          overflow: 'visible',
+          ease: Power4.easeOut
+        })
+        .fromTo(img,{
+          scale: 1
+        },{
+          scale: 1.4,
+          ease: Back.easeOut.config(4)
+        })
+
+        tl.eventCallback('onStart', disableLinks)
+        tl.eventCallback('onComplete', enableLinks)
+
+        let links = document.getElementsByClassName('country');
+        function disableLinks(){
+          for(let i=0; i<links.length; i++){
+            if(links[i].getAttribute('id' == imageId)){
+              links[i].style.pointerEvents = 'auto';
+            }else{
+              links[i].style.pointerEvents = 'none';
+            }
+          }
+        }
+
+        function enableLinks(){
+          for(let i=0; i<links.length; i++){
+            links[i].style.pointerEvents = 'auto';
+          }
+        }
+
+      }
+  </script>
+</html>
