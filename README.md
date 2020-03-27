@@ -1,1 +1,1 @@
-![](E:\Tashi\Desktop\Learning\A1Static\imgs\ScreenShort.gif)
+![](img/ScreenShort.gif)
